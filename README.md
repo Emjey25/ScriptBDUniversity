@@ -23,6 +23,28 @@ El modelo propuesto se basa en la implementación de una estructura **estrella**
 - 📍 ID_pedido, ID_producto, ID_cliente, fecha_pedido, ID_empleado, ID_oficina
 - 📊 Cantidad, precio_unidad, descuento, impuesto, total, factor de ajuste (**Fac**)
 
+### ⭐ **CONSULTA UTILIZADA PARA PROBAR LA CALIDAD DEL PROCESO**
+```
+
+  -- Consulta 1: Ventas con detalles
+  SELECT 
+    f.ID_pedido,
+    c.nombre_cliente,
+    p.nombre AS producto,
+    f.fecha_pedido,
+    f.total
+ FROM [StagingBDJardineria].[dbo].[FACVenta] f
+ INNER JOIN [StagingBDJardineria].[dbo].[DimCliente] c 
+    ON f.ID_cliente = c.ID_cliente
+ INNER JOIN [DIMVentas].[dbo].[DIMProducto] p 
+    ON f.ID_producto = p.ID_producto;
+
+ -- Consulta 2: Todos los productos de DIMVentas
+ SELECT * 
+ FROM [DIMVentas].[dbo].[DIMCliente];
+
+```
+
 ### 🗂️ **Dimensiones**
 - 📦 **DestinoProductoST**: Información de productos y categorías.
 - 🏢 **Destino OficinaST**: Datos de las oficinas de la empresa.
